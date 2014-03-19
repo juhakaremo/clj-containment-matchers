@@ -1,0 +1,1 @@
+Matchers for clojure collections. This library is created to ease the pain of matching nested data structures.
