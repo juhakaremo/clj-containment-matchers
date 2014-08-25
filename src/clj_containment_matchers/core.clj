@@ -6,7 +6,8 @@
 
   "
   (:require [clojure.data :refer [diff]]
-           [clj-containment-matchers.internal :refer [get-anything-matchers remove-paths]]))
+           [clj-containment-matchers.internal :refer [get-anything-matchers remove-paths]]
+           [clojure.pprint :refer [pprint]]))
 
 (def anything "clj-containment-matchers.core/anything-matcher")
 
@@ -28,8 +29,23 @@
   ([expected actual] (contains-exactly? expected actual anything))
   ([expected actual keyword-value-to-ignore]
     (let [[things-only-in-expected things-only-in-actual things-in-both] (diff+ expected actual keyword-value-to-ignore)]
-      (if things-only-in-expected (println "\r- - - Missing:" things-only-in-expected))
-      (if things-only-in-actual (println "\r- - - Unexpected content:" things-only-in-actual))
+      (when things-only-in-expected
+        (do
+          (println "")
+          (println "- - - Missing:")
+          (pprint things-only-in-expected)))
+      (when things-only-in-actual
+        (do
+          (println "")
+          (println "- - - Unexpected content:")
+          (pprint things-only-in-actual)))
+      (when (or things-only-in-expected things-only-in-actual)
+        (println "")
+        (println "- - - Expected:")
+        (println (pr-str expected))
+        (println "")
+        (println "- - - Actual:")
+        (println (pr-str actual)))
       (and (empty? things-only-in-expected) (empty? things-only-in-actual)))))
 
 ;todo
