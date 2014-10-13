@@ -53,6 +53,3 @@
 ;todo
 ;write readme
 ;replace anything with matcher function
-;contains
-;containsExactlyInAnyOrder
-;containsInAnyOrder
