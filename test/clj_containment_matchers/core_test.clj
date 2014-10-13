@@ -64,28 +64,28 @@
   (testing "removes map inside of map path"
     (is (= (remove-path {:name "john" :data {:wife "mary" :id anything}} [:data :id]) {:name "john" :data {:wife "mary"}}))))
 
-(def contains-exactly? (fn [expected actual] (clj-containment-matchers.core/contains-exactly? expected actual anything)))
+(def contains-exactly? (fn [actual expected] (clj-containment-matchers.core/contains-exactly? actual expected anything)))
 
 (deftest contains-exactly?-function
   (testing "handles maps"
-    (is (= true (contains-exactly? {:name "john" :id anything} {:name "john" :id "something random"}))))
+    (is (= true (contains-exactly? {:name "john" :id "something random"} {:name "john" :id anything}))))
   (testing "handles arrays"
     (is (contains-exactly?
-          [1 2 anything 4]
-          [1 2 "unknown in advance" 4])))
+          [1 2 "unknown in advance" 4]
+          [1 2 anything 4])))
   (is (not (contains-exactly?
-             [1 2 anything 4]
-             [1 2 "unknown in advance" 3])))
+             [1 2 "unknown in advance" 3]
+             [1 2 anything 4])))
   (testing "node"
     (is (contains-exactly?
           [{:type "Test"
             :linked-from []
             :links-to []
             :node {:data {:title "Title"}
-                   :id anything}}]
+                   :id 1}}]
           [{:type "Test"
             :linked-from []
             :links-to []
             :node {:data {:title "Title"}
-                   :id 1}}])
-      (is (contains-exactly? {:id anything :link []} {:id 1 :link []})))))
+                   :id anything}}])
+      (is (contains-exactly? {:id 1 :link []} {:id anything :link []} )))))

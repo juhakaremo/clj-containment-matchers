@@ -13,16 +13,8 @@
 
 (defn diff+
   "like clojure.data/diff but allows you to ignore values. Returns [things-only-in-expected things-only-in-actual things-in-both]"
-  "like clojure.data/diff but allows you to ignore values"
-  ([expected-raw actual-raw] (diff+ expected-raw actual-raw anything))
-  ([expected-raw actual-raw keyword-value-to-ignore]
-    (if (and (coll? expected-raw) (coll? actual-raw))
-      (let [ignored-paths (get-anything-matchers keyword-value-to-ignore expected-raw)
-            actual (remove-paths actual-raw ignored-paths)
-            expected (remove-paths expected-raw ignored-paths)
-            [things-only-in-expected things-only-in-actual things-in-both] (diff expected actual)]
-        [things-only-in-expected things-only-in-actual things-in-both])
-      (throw (IllegalArgumentException. "diff+ accepts only collections. Consider using clojure.data/diff instead of diff+.")))))
+  ([actual-raw expected-raw] (diff+ actual-raw expected-raw anything))
+  ([actual-raw expected-raw keyword-value-to-ignore]
    (when (nil? expected-raw)
       (throw (IllegalArgumentException. "Expectation cannot be nil.")))
     (let [ignored-paths (get-anything-matchers keyword-value-to-ignore expected-raw)
@@ -36,9 +28,9 @@
 (defn contains-exactly?
   "Checks if expected and actual have exactly same.
   Returns boolean."
-  ([expected actual] (contains-exactly? expected actual anything))
-  ([expected actual keyword-value-to-ignore]
-    (let [[things-only-in-expected things-only-in-actual things-in-both] (diff+ expected actual keyword-value-to-ignore)]
+  ([actual expected] (contains-exactly? actual expected anything))
+  ([actual expected keyword-value-to-ignore]
+    (let [[things-only-in-expected things-only-in-actual things-in-both] (diff+ actual expected keyword-value-to-ignore)]
       (when things-only-in-expected
         (do
           (println "")
