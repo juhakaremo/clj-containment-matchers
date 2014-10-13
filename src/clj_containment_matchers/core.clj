@@ -23,6 +23,8 @@
             [things-only-in-expected things-only-in-actual things-in-both] (diff expected actual)]
         [things-only-in-expected things-only-in-actual things-in-both])
       (throw (IllegalArgumentException. "diff+ accepts only collections. Consider using clojure.data/diff instead of diff+.")))))
+   (when (nil? expected-raw)
+      (throw (IllegalArgumentException. "Expectation cannot be nil.")))
     (let [ignored-paths (get-anything-matchers keyword-value-to-ignore expected-raw)
           expected (remove-paths expected-raw ignored-paths)]
       (cond
