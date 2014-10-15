@@ -4,5 +4,7 @@
   :dependencies [[org.clojure/clojure "1.6.0"]]
   :source-paths ["src"]
   :test-paths ["test"]
+  :scm {:name "git"
+        :url "https://github.com/juhakaremo/clj-containment-matchers"}
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"})
