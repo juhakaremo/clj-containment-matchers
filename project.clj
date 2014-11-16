@@ -4,6 +4,7 @@
   :dependencies [[org.clojure/clojure "1.6.0"]]
   :source-paths ["src"]
   :test-paths ["test"]
+  :profiles {:dev {:dependencies [[org.clojure/tools.trace "0.7.8"]]}}
   :scm {:name "git"
         :url "https://github.com/juhakaremo/clj-containment-matchers"}
   :license {:name "Eclipse Public License"
