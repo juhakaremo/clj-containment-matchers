@@ -55,7 +55,7 @@
     (value-match a b)
     (value-mismatch a b)))
 
-(defn- collectiont-type [x]
+(defn- collection-type [x]
   (when x
     (cond
       (instance? java.util.Set x) :set
@@ -65,8 +65,8 @@
       :else :value)))
 
 (defn diff [actual expected]
-  (let [actual-type (collectiont-type actual)
-        expected-type (collectiont-type expected)
+  (let [actual-type (collection-type actual)
+        expected-type (collection-type expected)
         diff-fn (cond
                   (= actual expected) value-match
                   (and (nil? actual-type) (nil? expected-type)) value-match
