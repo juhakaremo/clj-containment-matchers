@@ -37,9 +37,9 @@
   (testing "compares nested structures with different types of collections"
     (contains-exactly?
       [{:type "Test"
-        :node {:data {:title "Title"}
+        :node {:data {:title "My test node"}
                :id 1}}]
       [{:type "Test"
-        :node {:data {:title "Title"}
-               :id number?}}])
+        :node {:data {:title string?}
+               :id (fn [x] (and (> x 0) (< x 10)))}}])
     (contains-exactly? {:id 1 :link []} {:id anything :link []})))
