@@ -1,12 +1,11 @@
 (ns clj-containment-matchers.core-test
   (:require [clojure.test :refer :all]
-            [clj-containment-matchers.core :refer [anything]]))
-
-(defmacro contains-exactly? [actual expected]
-  `(is (clj-containment-matchers.core/contains-exactly? ~actual ~expected)))
+            [clj-containment-matchers.diff :refer [diff]]
+            [clj-containment-matchers.clojure-test :refer [anything contains-exactly?]]))
 
 (defmacro does-not-contain-exactly? [actual expected]
-  `(is (not (clj-containment-matchers.core/contains-exactly? ~actual ~expected))))
+  `(let [[things-only-in-actual# things-only-in-expected# things-in-both#] (diff ~actual ~expected)]
+     (is (or things-only-in-actual# things-only-in-expected#))))
 
 (deftest contains-exactly?-function
   (testing "compares arrays"
