@@ -64,7 +64,11 @@
       (instance? clojure.lang.IFn x) :function
       :else :value)))
 
-(defn diff [actual expected]
+(defn diff
+  "Diff function for clojure collections. This library is created especially to ease the pain of matching nested data structures.
+  Support functions as value matchers inside 'expected' collections, like {:name \"john\" :phone-numbers {\"home\" \"123\" \"work\" string?}}
+  Usage example:  (let [things-only-in-actual things-only-in-expected things-in-both] (diff actual expected))"
+  [actual expected]
   (let [actual-type (collection-type actual)
         expected-type (collection-type expected)
         diff-fn (cond
