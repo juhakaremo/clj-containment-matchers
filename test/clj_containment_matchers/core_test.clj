@@ -30,9 +30,9 @@
     (contains-exactly? {:name "john" :phone-numbers {"home" "123" "work" "456"}} {:name "john" :phone-numbers {"home" "123" "work" string?}})
     (does-not-contain-exactly? {:name "john" :phone-numbers {"home" "123" "work" "456"}} {:name "john" :phone-numbers {"home" "123" "work-2" "456"}}))
   (testing "compares sets"
-    (contains-exactly? #{1 2 3} #{2 1 3}) ;no orde, matchers functions are not supported either
+    (contains-exactly? #{1 2 3} #{2 1 3}) ;no order, matchers functions are not supported either
     (does-not-contain-exactly?  #{1 2 3} #{1 2 4}))
-  (testing "comares nested structures with different types of collections"
+  (testing "compares nested structures with different types of collections"
     (contains-exactly?
       [{:type "Test"
         :linked-from []
