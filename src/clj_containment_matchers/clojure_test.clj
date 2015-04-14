@@ -14,8 +14,8 @@
     (println "\nFAIL in" (clojure.test/testing-vars-str m))
     (when (seq clojure.test/*testing-contexts*) (println (clojure.test/testing-contexts-str)))
     (when-let [message (:message m)] (println message))
-    (println "expected:" (:expected m))
-    (println "actual:" (:actual m))))
+    (println "expected:\n" (:expected m))
+    (println "actual:\n" (:actual m))))
 
 ;This needs to be macro in order to have the correct line numbers in failure report
 (defmacro contains-exactly?
