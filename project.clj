@@ -1,4 +1,4 @@
-(defproject clj-containment-matchers "0.9.3"
+(defproject clj-containment-matchers "1.0.0"
   :description "Matchers for clojure collections. This library is created to ease the pain of matching nested data structures in production code and tests."
   :url "https://github.com/juhakaremo/clj-containment-matchers"
   :dependencies [[org.clojure/clojure "1.6.0"]]
