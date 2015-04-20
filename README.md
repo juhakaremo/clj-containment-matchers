@@ -19,30 +19,23 @@ expected: (= {:first-name "John", :last-name "Smith"} {:first-name "Johnny", :la
 With complex and possibly nested data structures it is hard to read what was actually wrong. With matcher like this
 
 ```clojure
-(deftest my-test-with-matcher (is (contains-exactly? {:first-name "John" :last-name "Smith"} {:first-name "Johnny" :last-name "Smith"})))
+(deftest my-test-with-matcher (is (equal? {:first-name "John" :last-name "Smith"} {:first-name "Johnny" :last-name "Smith"})))
 ```
 
 you get following output:
 
 ```
-- - - Missing:
-{:first-name "John"}
+FAIL in (my-test-with-matcher) (form-init7128815568440584833.clj:1)
 
-- - - Unexpected content:
+-- missing:
 {:first-name "Johnny"}
-
-- - - Expected:
-{:last-name "Smith", :first-name "Johnny"}
-
-- - - Actual:
-{:last-name "Smith", :first-name "John"}
-
-FAIL in (my-test-with-matcher) (form-init7375693162901327698.clj:1)
-expected: (clj-containment-matchers.core/contains-exactly? {:first-name "John", :last-name "Smith"} {:first-name "Johnny", :last-name "Smith"})
-  actual: (not (clj-containment-matchers.core/contains-exactly? {:last-name "Smith", :first-name "John"} {:last-name "Smith", :first-name "Johnny"}))
+++ unexpected:
+{:first-name "John"}
+expected: {:first-name "Johnny", :last-name "Smith"}
+  actual: {:last-name "Smith", :first-name "John"}
 ```
 
-From the output it is much easier to check what field was missing or what field had incorrect value.
+From the output it is easier to check what field was missing or what field had incorrect value.
 
 # Installation
 
@@ -55,18 +48,26 @@ Add the following to your `project.clj` `:dependencies`:
 # Usage
 
 ```clojure
-(require [clj-containment-matchers.core :refer :all])
+(require [clj-containment-matchers.clojure-test :refer :all])
 ```
 Check whether two items contain exactly the same values
 
 ```clojure
-(contains-exactly? actual expected)
+(is (equal? actual expected)
+
+(is (not-equal? actual expected)
 ```
 
 Ignore some field from the match (e.g. timestamp)
 
 ```clojure
-(contains-exactly? {:name "John" :timestamp 219898989} {:name "John" :timestamp anything})
+(is (equal? {:name "John" :timestamp 219898989} {:name "John" :timestamp anything})
+```
+
+anything is a function that clj-containment-matchers provide but you can use any Clojure function like this:
+
+```clojure
+(is (equal? {:name "John" :age 21} {:name "John" :age number?})
 ```
 
 #License
