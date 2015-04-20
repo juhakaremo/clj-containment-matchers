@@ -42,7 +42,7 @@ From the output it is easier to check what field was missing or what field had i
 Add the following to your `project.clj` `:dependencies`:
 
 ```clojure
-[clj-containment-matchers "0.9.3"]
+[clj-containment-matchers "1.0.1"]
 ```
 
 # Usage
